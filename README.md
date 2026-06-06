@@ -1,5 +1,9 @@
 # Cloud File Manager
 
+## Project Preview
+
+![Screenshot](screenshots/Screenshot (271).png)
+
 ## Overview
 
 Cloud File Manager is a web application built with Flask and Amazon S3 that allows users to upload files through a browser and store them securely in cloud storage.
