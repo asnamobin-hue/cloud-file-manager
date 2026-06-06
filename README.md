@@ -2,7 +2,7 @@
 
 ## Project Preview
 
-![Screenshot](screenshots/Screenshot (271).png)
+![Screenshot](screenshots/homepage.png)
 
 ## Overview
 
