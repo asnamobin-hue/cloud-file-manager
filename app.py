@@ -35,6 +35,11 @@ def upload_file():
     ext = ext.lower()
     if ext not in [".png", ".jpeg"]:
        return "File type not allowed"      
+    file.seek(0,2)
+    file_size = file.tell()
+    file.seek(0)
+    if file_size > 1*1024*1024:
+       return "File too large"
     s3.upload_fileobj(file,BUCKET_NAME,filename)
     return f"Uploaded: {filename}"
 
