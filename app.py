@@ -30,11 +30,13 @@ def home():
 @app.route("/upload", methods=["POST"])
 def upload_file():
     file = request.files["file"]
-
-    if file:
-        filename = file.filename
-        s3.upload_fileobj(file,BUCKET_NAME,filename)
-        return f"Uploaded: {filename}"
+    filename = file.filename
+    _, ext = os.path.splitext(filename)
+    ext = ext.lower()
+    if ext not in [".png", ".jpeg"]:
+       return "File type not allowed"      
+    s3.upload_fileobj(file,BUCKET_NAME,filename)
+    return f"Uploaded: {filename}"
 
     return "No file selected"
 @app.route("/delete", methods=["POST"])
