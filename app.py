@@ -23,7 +23,7 @@ def home():
     files = []
     if "Contents" in response:
       for obj in response["Contents"]:
-         files.append({"name": obj["Key"], "size": obj["Size"], "upload-date": obj["LastModified"], "owner": obj.get("Owner")})
+         files.append({"name": obj["Key"], "size": obj["Size"], "upload-date": obj["LastModified"].strftime("%d %b %Y"), "owner": obj.get("Owner")})
     return render_template("index.html", files=files)
 
 

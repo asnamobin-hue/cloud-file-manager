@@ -2,9 +2,47 @@
 <html>
 <head>
     <title>Cloud File Manager</title>
+      <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #6B8E23;
+        padding: 40px;
+    }
+    .container {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 30px;
+    }
+    h2 {
+        color: black;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        color: white;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+   button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+input[type="file"] {
+    color: white;
+}
+</style>
 </head>
 <body>
-
+  <div class = "container">
     <h2>Upload File</h2>
 
     <form action="/upload" method="POST" enctype="multipart/form-data">
@@ -13,18 +51,32 @@
   </form> 
   <h2>Uploaded Files</h2>
 
-  <ul>
-    {% for file in files %}
-        <li>{{ file.name }}-{{ file.size }} bytes - {{ file['upload-date'] }} - Owner: {{ file.owner }}
+<table>
+  <thead>
+   <tr> 
+     <th>Name</th>
+     <th>Size</th>
+     <th>Upload Date</th>
+     <th>Actions</th>
+   </tr>
+  </thead>
+<tbody>
+       {% for file in files %}   
+    <tr>
+     <td>{{ file.name }}</td> 
+     <td>{{ file.size }} bytes</td>
+     <td>{{ file['upload-date'] }}</td>
+     <td>
      <form action="/delete" method="POST">
-     <input type="hidden" name="filename" value= "{{ file.name }}">
-     <button type="submit">Delete</button>
+       <input type="hidden" name="filename" value= "{{ file.name }}">
+       <button type="submit">Delete</button>
+     </form>
      <a href="/download?filename={{ file.name }}">Download</a>
-</form>
-
-</li>
-    {% endfor %}
-
-</ul>     
+    </td>
+   </tr>
+    {% endfor %}   
+ </tbody>
+</table>
+</div>
 </body>
 </html>
