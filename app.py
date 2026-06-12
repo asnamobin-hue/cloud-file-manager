@@ -57,4 +57,4 @@ def download_file():
     return send_file(BytesIO(response["Body"].read()), download_name=filename, as_attachment=True,mimetype=mime_type)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0",debug=True)

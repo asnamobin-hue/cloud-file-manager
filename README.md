@@ -14,6 +14,7 @@ A web app where users can upload, store, download and delete image files using A
 - Delete files from S3
 - 1MB file size limit
 - File type validation (PNG and JPEG only)
+- Files are stored in the cloud using AWS S3, so they are not dependent on local storage
 
 ## Tech Stack
 
@@ -25,7 +26,7 @@ A web app where users can upload, store, download and delete image files using A
 | AWS SDK | Boto3 |
 | Frontend | HTML + CSS |
 | Config | python-dotenv |
-
+| Containerization | Docker |
 ## Project Structure
 
 ```text
@@ -69,8 +70,8 @@ python3 app.py
 - How S3 stores and manages files in the cloud
 - Deployed the app on AWS EC2
 - Keeping credentials secure using .env files
+- Also got basic understanding of how deployment works using EC2 and Docker
 
-## What's Next
+## Note
 
-- Add Docker support
-- User authentication 
+This project was deployed on AWS EC2 for testing purposes and may not always be running as the instance is stopped when not in use.
