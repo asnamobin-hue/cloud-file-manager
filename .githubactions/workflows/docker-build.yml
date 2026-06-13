@@ -1,4 +1,4 @@
-name: Build Docker Image
+name: Build and Test Docker App
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -15,3 +15,12 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t cloud-file-manager .
+
+      - name: Run Docker container
+        run: docker run -d -p 5000:5000 --name test-app cloud-file-manager
+
+      - name: Check container is running
+        run: docker ps
+
+      - name: Stop container
+        run: docker stop test-app
