@@ -1,0 +1,32 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd ~/cloud-file-manager
+
+            git pull origin main
+
+            docker stop cloud-file-manager || true
+            docker rm cloud-file-manager || true
+
+            docker build -t cloud-file-manager .
+
+            docker run -d \
+              -p 8080:5000 \
+              --name cloud-file-manager \
+              cloud-file-manager
