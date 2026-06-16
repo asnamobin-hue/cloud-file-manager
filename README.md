@@ -75,3 +75,4 @@ python3 app.py
 ## Note
 
 This project was deployed on AWS EC2 for testing purposes and may not always be running as the instance is stopped when not in use.
+ 
