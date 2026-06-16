@@ -3,10 +3,9 @@ import boto3
 from dotenv import load_dotenv
 import os
 load_dotenv()
-from flask import Flask, render_template, request, send_file, flash
+from flask import Flask, render_template, request, send_file
 from io import BytesIO
 app = Flask(__name__)
-app.secret_key = "secret-key"
 # AWS S3 Setup
 
 s3 = boto3.client('s3')
@@ -24,8 +23,7 @@ def home():
     if "Contents" in response:
       for obj in response["Contents"]:
          files.append({"name": obj["Key"], "size": obj["Size"], "upload-date": obj["LastModified"].strftime("%d %b %Y"), "owner": obj.get("Owner")})
-    file_count = len(files)
-    return render_template("index.html", files=files, file_count=file_count)
+    return render_template("index.html", files=files)
 
 
 @app.route("/upload", methods=["POST"])
@@ -42,7 +40,6 @@ def upload_file():
     if file_size > 1*1024*1024:
        return "File too large"
     s3.upload_fileobj(file,BUCKET_NAME,filename)
-    flash("file uploaded successfully")
     return f"Uploaded: {filename}"
 
     return "No file selected"
